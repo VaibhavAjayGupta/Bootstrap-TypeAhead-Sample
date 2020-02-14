@@ -24,18 +24,20 @@
 	$('input.typeahead').typeahead({
 	    source: function(query, process) {
         return $.ajax({
-            url: 'https://search-medial-suggest-ngram1-tkrd3yjpyimifgwzok3m4uut7a.us-east-1.cloudsearch.amazonaws.com//2013-01-01/search?q= renal+transplant~0.3&q.parser=lucene&size=20&return=_all_fields',
-			headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-			type: 'get',
-            data: {query: query},
-            dataType: 'json',
+            url: 'https://search-medial-suggest-ngram1-tkrd3yjpyimifgwzok3m4uut7a.us-east-1.cloudsearch.amazonaws.com//2013-01-01/search?q= renal+transplant~0.3&q.parser=lucene&size=20&return=_all_fields',			
+			jsonp : false,
+			contentType: "application/json",
+			cache: 'true',
+			dataType: 'jsonp',
+			crossDomain:true,
             success: function(json) {
-                return typeof json.options == 'undefined' ? false : process(json.options);
+				console.log('hi'+json);
             }
         });
     }
 	});
 
+	
 </script>
 </body>
 </html>
