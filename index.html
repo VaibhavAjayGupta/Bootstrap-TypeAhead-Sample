@@ -1,41 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <title>Bootstrap Typeahead with Ajax Example</title>  
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-    <script src="scripts/jquery.js"></script>
-    <script src="scripts/typeahead.bundle.min.js"></script>  
+	<title>Bootstrap Typeahead with Ajax Example</title>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+	<script src="scripts/jquery.js"></script>
+	<script src="scripts/typeahead.bundle.min.js"></script>
 </head>
+
 <body>
 
 
-<div class="row">
-	<div class="col-md-12 text-center">
-		<br/>
-		<h1>Search</h1>	
-			<input class="typeahead form-control" style="margin:0px auto;width:300px;" type="text">
+	<div class="row">
+		<div class="col-md-12 ">
+			<br />
+			<h1>Search</h1>
+			<input class="typeahead form-control"  type="text">
+		</div>
 	</div>
-</div>
 
 
-<script type="text/javascript">
+	<script type="text/javascript">
 
 
-	$('input.typeahead').typeahead({
-	    source: function(query, process) {
-        return $.ajax({
-            url: 'https://t8zw3470y0.execute-api.us-east-1.amazonaws.com/prod_search?q=%20renal+transplant~0.3&q.parser=lucene&size=20&return=_all_fields',			
-			contentType: "application/json",
-			dataType: 'json',
-			crossDomain:true,
-            success: function(json) {
-				console.log(json.status.hit);
-            }
-        });
-    }
-	});
+		$('input.typeahead').typeahead({
+			source: function (query, process) {
+				query = query.replace(/(^\s+|\s+$)|\s/g,
+					function ($0, $1) {
+						return $1 ? '' : '+';
+					}).toLowerCase();
+				return $.ajax({
+					url: 'https://t8zw3470y0.execute-api.us-east-1.amazonaws.com/prod_search?q=' + query + '~0.3&q.parser=lucene&size=20&return=_all_fields',
+					contentType: "application/json",
+					dataType: 'json',
+					crossDomain: true,
+					success: function (json) {
+						var result = json.hits.hit.map(name => {
+							return name.fields.concept_name
+						});
+						console.log(result);
+						return process(result);
+					}
+				});
+			}
+		});
 
-	
-</script>
+
+	</script>
 </body>
+
 </html>
