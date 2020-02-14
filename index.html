@@ -22,15 +22,18 @@
 
 
 	$('input.typeahead').typeahead({
-	    source:  function (query, process) {
-        return $.get('https://search-medial-suggest-ngram1-tkrd3yjpyimifgwzok3m4uut7a.us-east-1.cloudsearch.amazonaws.com//2013-01-01/search?q= renal+transplant~0.3&q.parser=lucene&size=20&return=_all_fields', { query: query }, function (data) {
-        		console.log(data);
-        		data = $.parseJSON(data);
-	            return process(data);
-	        });
-	    }
+	    source: function(query, process) {
+        return $.ajax({
+            url: $(this)[0].$element[0].dataset.link,
+            type: 'get',
+            data: {query: query},
+            dataType: 'json',
+            success: function(json) {
+                return typeof json.options == 'undefined' ? false : process(json.options);
+            }
+        });
+    }
 	});
-
 
 </script>
 </body>
