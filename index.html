@@ -24,12 +24,12 @@
 	$('input.typeahead').typeahead({
 	    source: function(query, process) {
         return $.ajax({
-            url: 'https://search-medial-suggest-ngram1-tkrd3yjpyimifgwzok3m4uut7a.us-east-1.cloudsearch.amazonaws.com//2013-01-01/search?q= renal+transplant~0.3&q.parser=lucene&size=20&return=_all_fields',			
+            url: 'https://t8zw3470y0.execute-api.us-east-1.amazonaws.com/prod_search?q=%20renal+transplant~0.3&q.parser=lucene&size=20&return=_all_fields',			
 			contentType: "application/json",
 			dataType: 'json',
 			crossDomain:true,
             success: function(json) {
-				console.log('hi'+json);
+				console.log(json);
             }
         });
     }
