@@ -24,8 +24,9 @@
 	$('input.typeahead').typeahead({
 	    source: function(query, process) {
         return $.ajax({
-            url: $(this)[0].$element[0].dataset.link,
-            type: 'get',
+            url: 'https://search-medial-suggest-ngram1-tkrd3yjpyimifgwzok3m4uut7a.us-east-1.cloudsearch.amazonaws.com//2013-01-01/search?q= renal+transplant~0.3&q.parser=lucene&size=20&return=_all_fields',
+			headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+			type: 'get',
             data: {query: query},
             dataType: 'json',
             success: function(json) {
