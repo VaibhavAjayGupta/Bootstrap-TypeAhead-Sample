@@ -1,4 +1,4 @@
 # BootstrapTypeAheadSample
-Autosuggest interface using Bootstrap, TypeAhead.js and Amazon Cloud Search
+Autocomplete/Autosuggest/TypeAhead sample user interface using Bootstrap, TypeAhead.js and Amazon Cloud Search
 
 Sample :- https://vaibhavajaygupta.github.io/BootstrapTypeAheadSample/
